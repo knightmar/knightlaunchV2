@@ -2,6 +2,7 @@ package fr.knightmar.panes;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,19 +18,22 @@ public class MainPane extends Pane {
     private final Stage primaryStage;
     private int width;
     private int height;
-    private final CheckBox cracked = new CheckBox("Play in cracked mod");
+    private final CheckBox cracked = new CheckBox("Play in cracked mode");
     private final TextField pseudo = new TextField();
     private final Button login = new Button("Login");
     private final Button login_ms = new Button();
+    private final Label login_label = new Label("Login");
 
 
-    public MainPane(Stage primaryStage, int width, int height) throws IllegalAccessException {
+    public MainPane(Stage primaryStage, int width, int height) {
         this.primaryStage = primaryStage;
         this.width = width;
         this.height = height;
         setupUiProperties();
         setupUiActions();
-        this.getChildren().addAll(loginPane, loginSeparator, cracked, pseudo, login, login_ms);
+        this.getChildren().addAll(loginPane, loginSeparator, cracked, pseudo, login, login_ms, login_label);
+        cracked.setSelected(false);
+        setCracked(false);
     }
 
     private void setupUiActions() {
@@ -43,6 +47,14 @@ public class MainPane extends Pane {
         loginPane.setId("login_pane");
         loginPane.setTranslateX(20);
         loginPane.setTranslateY(20);
+
+        // Setup the login label
+        login_label.setText("Login");
+        login_label.setId("login_label");
+        login_label.setTranslateX(135);
+        login_label.setTranslateY(20);
+
+
 
         // Setup the login with ms button
         ImageView login_ms_image = new ImageView(new Image("images/logo_ms.png"));
@@ -78,6 +90,7 @@ public class MainPane extends Pane {
         pseudo.setPrefHeight(30);
         pseudo.setTranslateX(20 + (loginPane.getMinWidth() / 2.0) - (pseudo.getPrefWidth() / 2.0));
         pseudo.setTranslateY((height / 2.0) + 70 + 100);
+        pseudo.getStyleClass().add("buttons");
 
         // Setup the login button
         login.setId("login");
@@ -85,6 +98,7 @@ public class MainPane extends Pane {
         login.setPrefHeight(30);
         login.setTranslateX(20 + (loginPane.getMinWidth() / 2.0) - (login.getPrefWidth() / 2.0));
         login.setTranslateY((height / 2.0) + 110 + 100);
+        login.getStyleClass().add("buttons");
 
 
         // Setup the global window properties
@@ -93,7 +107,8 @@ public class MainPane extends Pane {
     }
 
     private void setCracked(boolean cracked) {
-        pseudo.setDisable(cracked);
-        login.setDisable(cracked);
+        pseudo.setDisable(!cracked);
+        login.setDisable(!cracked);
+        login_ms.setDisable(cracked);
     }
 }

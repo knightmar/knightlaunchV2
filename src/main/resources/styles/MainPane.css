@@ -18,3 +18,20 @@
     -fx-font-weight: bold;
     -fx-text-fill: #b2b2b2;
 }
+
+.buttons {
+    -fx-background-color: linear-gradient(to right, rgba(0, 78, 190, 0.63), rgba(27, 112, 196, 0.69));
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+
+}
+
+#login_label {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #a6a6a6;
+}
+
+#login_ms {
+    -fx-background-color: #bbbbbb;
+}
