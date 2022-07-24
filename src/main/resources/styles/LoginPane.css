@@ -1,0 +1,38 @@
+#root {
+    -fx-background-image: url("../images/background.png");
+    /*-fx-background-color: linear-gradient(to bottom, rgb(17, 17, 17), rgb(77, 77, 77));*/
+}
+
+#login_pane {
+    -fx-background-color: linear-gradient(to bottom, rgb(44, 44, 44), rgb(77, 77, 77));
+    -fx-background-radius: 20px;
+
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+}
+
+#login_separator {
+    -fx-background-color: #484848;
+}
+
+#cracked {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #b2b2b2;
+}
+
+.buttons {
+    -fx-background-color: linear-gradient(to right, rgba(0, 78, 190, 0.63), rgba(27, 112, 196, 0.69));
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+
+}
+
+#login_label {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #a6a6a6;
+}
+
+#login_ms {
+    -fx-background-color: #bbbbbb;
+}
