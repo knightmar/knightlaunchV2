@@ -10,6 +10,7 @@ import fr.theshark34.openlauncherlib.util.Saver;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.nio.file.Path;
 
@@ -69,6 +70,7 @@ public class MainGui extends Application {
             currentScene = new Scene(new MainPane(width, height), width, height);
 
         }
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setResizable(false);
         primaryStage.setTitle("First JavaFX Application");
         primaryStage.setScene(currentScene);
