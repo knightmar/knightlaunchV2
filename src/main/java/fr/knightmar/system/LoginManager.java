@@ -21,6 +21,7 @@ public class LoginManager {
     private String pseudo = "";
     private String uuid = "";
     private String refreshToken = "";
+    private String accessToken = "";
 
     public LoginManager() {
         this.instance = MainGui.getInstance();
@@ -46,9 +47,11 @@ public class LoginManager {
                 this.pseudo = result.getProfile().getName();
                 this.uuid = result.getProfile().getId();
                 this.refreshToken = result.getRefreshToken();
+                this.accessToken = result.getAccessToken();
                 saver.set("pseudo", this.pseudo);
                 saver.set("uuid", this.uuid);
                 saver.set("refreshToken", this.refreshToken);
+                saver.set("accessToken", this.accessToken);
                 saver.save();
 
             } catch (MicrosoftAuthenticationException e) {
@@ -67,6 +70,7 @@ public class LoginManager {
             }
 
             Platform.runLater(() -> {
+
                 instance.getLogger().info("User " + pseudo + " is logged");
                 instance.setLogged(true);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

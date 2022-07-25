@@ -29,6 +29,7 @@ public class VersionManager {
     }
 
     public static void updateVersionsAvailability() {
+        versions.replaceAll((v, c) -> false);
         File versionDir = MainGui.getInstance().getlauncherDir().resolve("versions").toFile();
         if (versionDir.exists()) {
             File[] files = versionDir.listFiles();
@@ -45,6 +46,7 @@ public class VersionManager {
                 }
             }
         }
+        versions.forEach((key, value) -> System.out.println(key + " : " + value));
     }
 
     public static boolean isVersionAvailable(String version) {

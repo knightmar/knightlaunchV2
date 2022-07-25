@@ -3,15 +3,10 @@ package fr.knightmar.panes;
 import fr.knightmar.MainGui;
 import fr.knightmar.system.GameManager;
 import fr.knightmar.system.VersionManager;
-import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainPane extends Pane {
@@ -38,7 +33,7 @@ public class MainPane extends Pane {
 
         playButton.setOnAction((event) -> {
             System.out.println("Play");
-            GameManager.launchGame(versionComboBox.getValue().toString());
+            GameManager.initLaunch(versionComboBox.getValue().toString());
         });
     }
 
