@@ -67,14 +67,14 @@ public class LoginManager {
             }
 
             Platform.runLater(() -> {
-                instance.getLogger().err("User is logged");
+                instance.getLogger().info("User " + pseudo + " is logged");
                 instance.setLogged(true);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Logged in successfully");
                 alert.setHeaderText("You are now logged in");
                 alert.setContentText("Welcome " + this.pseudo);
                 alert.show();
-                MainGui.getInstance().getPrimaryStage().setScene(new Scene(new MainPane(), 1280, 720));
+                MainGui.getInstance().getPrimaryStage().setScene(new Scene(new MainPane(1280, 720), 1280, 720));
             });
         });
         t.start();
@@ -97,8 +97,8 @@ public class LoginManager {
             alert.setHeaderText("You are now logged in");
             alert.setContentText("Welcome " + this.pseudo);
             alert.show();
-            MainGui.getInstance().getPrimaryStage().setScene(new Scene(new MainPane(), 1280, 720));
-        }else {
+            MainGui.getInstance().getPrimaryStage().setScene(new Scene(new MainPane(1280, 720), 1280, 720));
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error on login");
             alert.setHeaderText("Your pseudo is not valid");

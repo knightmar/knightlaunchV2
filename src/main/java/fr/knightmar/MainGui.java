@@ -4,6 +4,7 @@ import fr.flowarg.flowlogger.Logger;
 import fr.knightmar.panes.LoginPane;
 import fr.knightmar.panes.MainPane;
 import fr.knightmar.system.LoginManager;
+import fr.knightmar.system.VersionManager;
 import fr.theshark34.openlauncherlib.minecraft.util.GameDirGenerator;
 import fr.theshark34.openlauncherlib.util.Saver;
 import javafx.application.Application;
@@ -53,14 +54,19 @@ public class MainGui extends Application {
         }
     }
 
+    public Path getlauncherDir() {
+        return LAUNCHER_DIR;
+    }
+
     @Override
     public void start(Stage stage) {
+        VersionManager.init();
         this.primaryStage = stage;
         int width = 1280, height = 720;
         if (!isLogged) {
             currentScene = new Scene(new LoginPane(width, height), width, height);
         } else {
-            currentScene = new Scene(new MainPane(), width, height);
+            currentScene = new Scene(new MainPane(width, height), width, height);
 
         }
         primaryStage.setResizable(false);
