@@ -10,10 +10,10 @@ import java.util.Objects;
 
 public class GameManager {
     public static void initLaunch(String version) {
-        VersionManager.updateVersionsAvailability();
         if (!VersionManager.isVersionAvailable(version)) {
             try {
                 VersionManager.installVersion(version);
+                launch(version);
             } catch (Exception e) {
                 e.printStackTrace();
             }

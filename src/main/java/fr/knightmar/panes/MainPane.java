@@ -18,7 +18,7 @@ import javafx.scene.text.TextAlignment;
 
 
 public class MainPane extends Pane {
-    private ComboBox versionComboBox = new ComboBox(FXCollections.observableArrayList(VersionManager.getVersions()));
+    private ComboBox versionComboBox = new ComboBox(FXCollections.observableArrayList(VersionManager.getMinecraftVersions(false)));
     private Button playButton = new Button("Play");
     private final double width;
     private final double height;
@@ -76,7 +76,7 @@ public class MainPane extends Pane {
         exit_button.setBackground(null);
 
         hide_button.setPrefSize(18, 18);
-        hide_button.setLayoutX(width - 140);
+        hide_button.setLayoutX(width - 137);
         hide_button.setLayoutY(7);
         hide_button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         hide_button.setGraphic(new ImageView(new Image("/images/hide_button.png")));
@@ -97,7 +97,7 @@ public class MainPane extends Pane {
         crackMessage.setWrapText(false);
         crackMessage.setTranslateX(285);
         crackMessage.setTranslateY(height - crackMessage.getHeight() - 50);
-        crackMessage.setVisible(true);
+        crackMessage.setVisible(!MainGui.getInstance().getLoginManager().getCracked());
         crackMessage.setPrefSize(841, 92);
         crackMessage.setGraphic(crackBanner);
         crackMessage.setFont(font);
@@ -117,9 +117,11 @@ public class MainPane extends Pane {
         versionComboBox.setTranslateY(60);
 
         playButton.setId("play_button");
-        playButton.setTranslateX(width / 2.0 - playButton.getMinWidth() / 2);
-        playButton.setTranslateY(100);
+        playButton.setPrefSize(232,92);
+        playButton.setTranslateX(512);
+        playButton.setTranslateY(160);
         playButton.setFont(font);
+        hide_button.setBorder(null);
 
         playerHead.setId("player_head");
         playerHead.setMaxSize(113, 113);

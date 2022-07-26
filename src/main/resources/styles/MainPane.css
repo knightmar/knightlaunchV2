@@ -40,3 +40,8 @@
 #version_combo_box {
     -fx-background-color: red;
 }
+
+#play_button {
+    -fx-background-image: url("../images/play_button2.png");
+    -fx-background-color: transparent;
+}

@@ -16,5 +16,6 @@ public class Main {
                     "Erreur",
                     JOptionPane.ERROR_MESSAGE
             );
-        }    }
+        }
+    }
 }

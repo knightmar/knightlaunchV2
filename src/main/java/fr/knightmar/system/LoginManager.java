@@ -22,6 +22,7 @@ public class LoginManager {
     private String uuid = "";
     private String refreshToken = "";
     private String accessToken = "";
+    private Boolean isCracked = null;
 
     public LoginManager() {
         this.instance = MainGui.getInstance();
@@ -32,6 +33,9 @@ public class LoginManager {
         instance.getLogger().info("LoginManager init");
 
         this.pseudo = saver.get("pseudo");
+        this.uuid = saver.get("uuid");
+
+        setCracked(this.uuid == null || this.uuid.isEmpty());
     }
 
     public boolean isLogged() {
@@ -70,7 +74,6 @@ public class LoginManager {
             }
 
             Platform.runLater(() -> {
-
                 instance.getLogger().info("User " + pseudo + " is logged");
                 instance.setLogged(true);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -79,6 +82,7 @@ public class LoginManager {
                 alert.setContentText("Welcome " + this.pseudo);
                 alert.show();
                 MainGui.getInstance().getPrimaryStage().setScene(new Scene(new MainPane(1280, 720), 1280, 720));
+                setCracked(false);
             });
         });
         t.start();
@@ -102,6 +106,7 @@ public class LoginManager {
             alert.setContentText("Welcome " + this.pseudo);
             alert.show();
             MainGui.getInstance().getPrimaryStage().setScene(new Scene(new MainPane(1280, 720), 1280, 720));
+            setCracked(true);
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error on login");
@@ -124,5 +129,15 @@ public class LoginManager {
         saver.save();
         instance.setLogged(false);
         MainGui.getInstance().getPrimaryStage().setScene(new Scene(new LoginPane(1280, 720), 1280, 720));
+        isCracked = null;
+    }
+
+    public boolean getCracked() {
+        uuid = saver.get("uuid");
+        return uuid != null && !uuid.isEmpty();
+    }
+
+    public void setCracked(boolean cracked) {
+        isCracked = cracked;
     }
 }
