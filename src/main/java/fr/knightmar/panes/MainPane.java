@@ -113,8 +113,9 @@ public class MainPane extends Pane {
 
 
         versionComboBox.setId("version_combo_box");
-        versionComboBox.setTranslateX(width / 2.0 - versionComboBox.getMinWidth() / 2);
-        versionComboBox.setTranslateY(60);
+        versionComboBox.setPrefSize(170, 33);
+        versionComboBox.setTranslateX(743);
+        versionComboBox.setTranslateY(206);
 
         playButton.setId("play_button");
         playButton.setPrefSize(232,92);

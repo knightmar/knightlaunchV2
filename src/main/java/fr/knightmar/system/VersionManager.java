@@ -84,14 +84,18 @@ public class VersionManager {
         oldVersionTree.forEach(version -> {
 
             JsonObject versionObject = (JsonObject) version;
-            if (withSnapshot) {
-                versionsList.add(versionObject.get("id").toString().substring(1, versionObject.get("id").toString().length() - 1));
-            } else {
-                if (versionObject.get("type").toString().contains("release")) {
+            try {
+                if (versionObject.get("id").toString().split("\\.")[1].matches("[0-5]") || versionObject.get("id").toString().split("\\.").length != 3) {
+                    System.out.println("Version is not supported " + versionObject.get("id").toString());
+                } else if (versionObject.get("type").toString().contains("release")) {
+                    System.out.println("version supported :" + versionObject.get("id").toString());
                     versionsList.add(versionObject.get("id").toString().substring(1, versionObject.get("id").toString().length() - 1));
                 }
+            } catch (Exception e) {
+                System.out.println("Version is not supported " + versionObject.get("id").toString());
             }
         });
+        versionsList.add("1.6");
 
         return versionsList;
     }
