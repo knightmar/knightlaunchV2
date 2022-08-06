@@ -10,22 +10,22 @@
     -fx-background-image: url("../images/logout_button.png");
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
-    -fx-padding: 0px 0px 30px 0px;
-
+    -fx-padding: 0px 0px 0px 22px;
+    -fx-text-fill: white;
 }
 
 #logout_button:hover {
     -fx-background-image: url("../images/logout_button_hover.png");
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
-    -fx-padding: 0px 0px 30px 0px;
-
 }
 
 
 #settings_button {
     -fx-background-image: url("../images/settings_button.png");
     -fx-background-color: transparent;
+    -fx-padding: 0px 0px 0px 30px;
+    -fx-text-fill: white;
 }
 
 #settings_button:hover {
@@ -34,14 +34,23 @@
 }
 
 #crack_message {
-    -fx-padding: 0px 0px 70px 0px;
+    -fx-text-fill: white;
 }
 
-#version_combo_box {
+#version_combo_box * {
     -fx-background-color: red;
+    -fx-text-fill: white;
+}
+
+#version_combo_box > * {
+    -fx-background-color: #0015ff;
+    -fx-text-fill: white;
 }
 
 #play_button {
     -fx-background-image: url("../images/play_button2.png");
     -fx-background-color: transparent;
+    -fx-text-fill: white;
+
 }
+

@@ -32,7 +32,7 @@ public class GameManager {
         if (Objects.equals(version, "1.7.10")) {
             infos = new GameInfos("knightLauncherV2" + "/versions/" + version, new GameVersion(version, GameType.V1_7_10), new GameTweak[]{});
         } else {
-            infos = new GameInfos("knightLauncherV2" + "/versions/" + version, new GameVersion(version, GameType.V1_8_HIGHER), new GameTweak[]{});
+            infos = new GameInfos("knightLauncherV2" + "/versions/" + version, new GameVersion(version, GameType.V1_13_HIGHER_VANILLA), new GameTweak[]{});
         }
 
 

@@ -16,11 +16,12 @@ import java.nio.file.Path;
 
 public class MainGui extends Application {
     private static MainGui instance;
-    private final LoginManager loginManager;
+    private LoginManager loginManager;
     private final Path LAUNCHER_DIR = GameDirGenerator.createGameDir("knightlauncherV2", true);
     private Saver saver;
 
-
+    public double xOffset = 0;
+    public double yOffset = 0;
     private boolean isLogged;
 
 
@@ -30,6 +31,11 @@ public class MainGui extends Application {
 
     private Stage primaryStage;
 
+    private MainPane mainPane;
+
+    public MainPane getMainPane() {
+        return mainPane;
+    }
 
     public MainGui() {
         instance = this;
@@ -61,13 +67,23 @@ public class MainGui extends Application {
 
     @Override
     public void start(Stage stage) {
+
+
+
+
+
+
+
+
+
         VersionManager.init();
         this.primaryStage = stage;
         int width = 1280, height = 720;
         if (!isLogged) {
             currentScene = new Scene(new LoginPane(width, height), width, height);
         } else {
-            currentScene = new Scene(new MainPane(width, height), width, height);
+            mainPane = new MainPane(width, height);
+            currentScene = new Scene(mainPane, width, height);
 
         }
         primaryStage.initStyle(StageStyle.UNDECORATED);

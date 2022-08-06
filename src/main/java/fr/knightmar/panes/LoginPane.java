@@ -25,6 +25,18 @@ public class LoginPane extends Pane {
 
 
     public LoginPane(int width, int height) {
+
+        this.setOnMousePressed(event -> {
+            MainGui.getInstance().xOffset = event.getSceneX();
+            MainGui.getInstance().yOffset = event.getSceneY();
+        });
+        this.setOnMouseDragged(event -> {
+            MainGui.getInstance().getPrimaryStage().setX(event.getScreenX() - MainGui.getInstance().xOffset);
+            MainGui.getInstance().getPrimaryStage().setY(event.getScreenY() - MainGui.getInstance().yOffset);
+        });
+
+
+
         this.width = width;
         this.height = height;
         setupUiProperties();

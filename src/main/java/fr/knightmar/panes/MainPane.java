@@ -6,10 +6,7 @@ import fr.knightmar.system.VersionManager;
 import fr.knightmar.utils.AccountUtils;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -23,7 +20,7 @@ public class MainPane extends Pane {
     private final double width;
     private final double height;
     private Button logoutButton;
-    private Button settingsButton;
+    private Button settingsButton = new Button("Settings");
 
     private Label playerHead = new Label();
 
@@ -35,14 +32,28 @@ public class MainPane extends Pane {
 
     private Button hide_button = new Button("");
 
+    private ProgressBar progressBar = new ProgressBar();
+    private Label percentLabel = new Label();
+
+    private Label infoLabel = new Label();
+
 
     public MainPane(double width, double height) {
+        this.setOnMousePressed(event -> {
+            MainGui.getInstance().xOffset = event.getSceneX();
+            MainGui.getInstance().yOffset = event.getSceneY();
+        });
+        this.setOnMouseDragged(event -> {
+            MainGui.getInstance().getPrimaryStage().setX(event.getScreenX() - MainGui.getInstance().xOffset);
+            MainGui.getInstance().getPrimaryStage().setY(event.getScreenY() - MainGui.getInstance().yOffset);
+        });
+
         this.width = width;
         this.height = height;
         setupUiProperties();
         setupUiActions();
 
-        this.getChildren().addAll(logoutButton, versionComboBox, playButton, playerHead, settingsButton, crackMessage, reloadButton, exit_button, hide_button);
+        this.getChildren().addAll(logoutButton, versionComboBox, playButton, playerHead, settingsButton, crackMessage, reloadButton, exit_button, hide_button, progressBar, percentLabel, infoLabel);
     }
 
     private void setupUiActions() {
@@ -51,7 +62,8 @@ public class MainPane extends Pane {
         });
 
         playButton.setOnAction((event) -> {
-            GameManager.initLaunch(versionComboBox.getValue().toString());
+            Thread thread = new Thread(() -> GameManager.initLaunch(versionComboBox.getValue().toString()));
+            thread.start();
         });
 
         reloadButton.setOnAction((event) -> {
@@ -90,39 +102,53 @@ public class MainPane extends Pane {
         this.getStylesheets().add("styles/MainPane.css");
 
         ImageView crackBanner = new ImageView(new Image("images/crack_message.png"));
-        crackMessage.setText("Warning !!! Your in crack mode, you can't play on online servers.");
+        crackMessage.setText("Warning !!! You're in crack mode, you can't play on online servers.");
         crackMessage.setId("crack_message");
         crackMessage.setTextAlignment(TextAlignment.CENTER);
         crackMessage.setContentDisplay(ContentDisplay.CENTER);
         crackMessage.setWrapText(false);
         crackMessage.setTranslateX(285);
-        crackMessage.setTranslateY(height - crackMessage.getHeight() - 50);
         crackMessage.setVisible(!MainGui.getInstance().getLoginManager().getCracked());
         crackMessage.setPrefSize(841, 92);
         crackMessage.setGraphic(crackBanner);
         crackMessage.setFont(font);
+        crackMessage.setTranslateY(height - crackMessage.getPrefHeight() - 10);
+
+
+        settingsButton.setId("settings_button");
+        settingsButton.setPrefSize(135, 46);
+        settingsButton.setTranslateX(0);
+        settingsButton.setTranslateY(height - 109);
+        settingsButton.setBorder(null);
+        settingsButton.setFont(font);
 
         logoutButton = new Button("Logout");
         logoutButton.setId("logout_button");
-        logoutButton.setPrefSize(100, 10);
-        logoutButton.setTranslateX(18);
-        logoutButton.setTranslateY(height - 41);
         logoutButton.setFont(font);
         logoutButton.setTextAlignment(TextAlignment.CENTER);
         logoutButton.setContentDisplay(ContentDisplay.TOP);
+        logoutButton.setPrefSize(135, 46);
+        logoutButton.setTranslateX(0);
+        logoutButton.setBorder(null);
+        logoutButton.setTranslateY(settingsButton.getTranslateY() + logoutButton.getPrefHeight());
 
 
         versionComboBox.setId("version_combo_box");
-        versionComboBox.setPrefSize(170, 33);
+        versionComboBox.setPrefSize(170, 34);
         versionComboBox.setTranslateX(743);
         versionComboBox.setTranslateY(206);
+        versionComboBox.getSelectionModel().selectFirst();
+
+        Font playFont = Font.loadFont(getClass().getResourceAsStream("/font/mc_font_bold.otf"), 45);
+
 
         playButton.setId("play_button");
-        playButton.setPrefSize(232,92);
+        playButton.setPrefSize(232, 92);
         playButton.setTranslateX(512);
         playButton.setTranslateY(160);
-        playButton.setFont(font);
-        hide_button.setBorder(null);
+        playButton.setFont(playFont);
+        playButton.setBorder(null);
+
 
         playerHead.setId("player_head");
         playerHead.setMaxSize(113, 113);
@@ -134,12 +160,48 @@ public class MainPane extends Pane {
         headImageView.setPreserveRatio(true);
         playerHead.setGraphic(headImageView);
 
-        settingsButton = new Button("");
-        settingsButton.setId("settings_button");
-        settingsButton.setPrefSize(135, 46);
-        settingsButton.setTranslateX(0);
-        settingsButton.setTranslateY(height - 109);
-        settingsButton.setBorder(null);
-        settingsButton.setFont(font);
+
+        progressBar.setId("progress_bar");
+        progressBar.setPrefSize(width - 200, 30);
+        progressBar.setTranslateX(180);
+        progressBar.setTranslateY(height - progressBar.getPrefHeight() - 100);
+        progressBar.setVisible(true);
+        progressBar.setProgress(0);
+
+        percentLabel.setId("progress_label");
+        percentLabel.setPrefSize(120, 30);
+        percentLabel.setTranslateX(progressBar.getTranslateX() + 10);
+        percentLabel.setTranslateY(height - progressBar.getPrefHeight() - 100);
+        percentLabel.setVisible(true);
+        percentLabel.setText("banana");
+        percentLabel.setFont(font);
+        percentLabel.setTextAlignment(TextAlignment.CENTER);
+        percentLabel.setContentDisplay(ContentDisplay.CENTER);
+        percentLabel.setWrapText(false);
+
+        infoLabel.setId("info_label");
+        infoLabel.setPrefSize(300, 30);
+        infoLabel.setTranslateX(progressBar.getTranslateX() + progressBar.getPrefWidth() / 2.0 - infoLabel.getPrefWidth() / 2.0);
+        infoLabel.setTranslateY(height - progressBar.getPrefHeight() - 130);
+        infoLabel.setVisible(true);
+        infoLabel.setText("truc");
+        infoLabel.setFont(font);
+        infoLabel.setTextAlignment(TextAlignment.CENTER);
+        infoLabel.setContentDisplay(ContentDisplay.CENTER);
+        infoLabel.setWrapText(false);
+
+
+    }
+
+    public void setProgressBar(double progression) {
+        int progress = (int) (progression * 100);
+        System.out.println(progress);
+        progressBar.setProgress(progression);
+        percentLabel.setText(progress + "%");
+        percentLabel.setTranslateX(progressBar.getTranslateX() + 10 + progression / 2 * (progressBar.getPrefWidth() - 100));
+    }
+
+    public void setInfoLabel(String text) {
+        infoLabel.setText(text);
     }
 }
